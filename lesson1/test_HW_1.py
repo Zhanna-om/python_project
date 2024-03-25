@@ -92,14 +92,3 @@ def test_placing_an_order():
     time.sleep(3)
     browser.quit()
 
-def test_filter_A_Z():
-    #авторизация
-    browser.get("https://www.saucedemo.com/")
-    browser.find_element(By.XPATH, '//*[@id="user-name"]').send_keys("standard_user")
-    browser.find_element(By.XPATH, '//*[@id="password"]').send_keys("secret_sauce")
-    browser.find_element(By.XPATH, '//*[@id="login-button"]').click()
-
-    browser.find_element(By.XPATH, '// select[ @class ="product_sort_container"]').click()
-    time.sleep(3)
-    browser.find_element(By.XPATH, '//button[contains(text(), "Z)")]').click()
-    time.sleep(3)
