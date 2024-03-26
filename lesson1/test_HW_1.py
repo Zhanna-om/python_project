@@ -208,4 +208,5 @@ def test_reset_app_state():
     time.sleep(1)
     browser.find_element(By.XPATH, '//a[@id = "reset_sidebar_link"]').click()
 
+
     time.sleep(1)
