@@ -207,4 +207,5 @@ def test_reset_app_state():
     browser.find_element(By.XPATH, '//button[@id="react-burger-menu-btn"]').click()
     time.sleep(1)
     browser.find_element(By.XPATH, '//a[@id = "reset_sidebar_link"]').click()
+
     time.sleep(1)
