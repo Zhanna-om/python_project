@@ -203,6 +203,7 @@ def test_reset_app_state():
     browser.find_element(By.XPATH, '//*[@id="password"]').send_keys("secret_sauce")
     browser.find_element(By.XPATH, '//*[@id="login-button"]').click()
 
+
     #переход в бургер меню
     browser.find_element(By.XPATH, '//button[@id="react-burger-menu-btn"]').click()
     time.sleep(1)
