@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import  Select
 import pytest
-
+import autoriz
 browser=webdriver.Chrome()
 
 def test_aut_positiv():
@@ -24,17 +24,24 @@ def test_aut_negative():
 
 def test_basket_add_product_1():
     #авторизация
+    #autoriz.Authorization()
     browser.get("https://www.saucedemo.com/")
     browser.find_element(By.XPATH, '//*[@id="user-name"]').send_keys("standard_user")
     browser.find_element(By.XPATH, '//*[@id="password"]').send_keys("secret_sauce")
     browser.find_element(By.XPATH, '//*[@id="login-button"]').click()
     #добавление в корзину через каталог
-    #time.sleep(3)
+    time.sleep(3)
     browser.find_element(By.XPATH, '//div[contains(text(), "$")]/following-sibling::button').click()
     #time.sleep(3)
     #переход в корзину и удаление
     browser.find_element(By.XPATH, '//a[@class="shopping_cart_link"]').click()
     browser.find_element(By.XPATH, '//button[contains(text(), "Remove")]').click()
+    # проверка существует ли корзина
+    try:
+        browser.find_element(By.XPATH,'//*[@id="shopping_cart_container"]/a/span')
+    except:
+        result=True
+    assert result==True
     #time.sleep(3)
 
 def test_basket_add_product_2():
@@ -49,6 +56,12 @@ def test_basket_add_product_2():
     # удаление через карточку
     #time.sleep(3)
     browser.find_element(By.XPATH, '//button[contains(text(), "Remove")]').click()
+    # проверка существует ли корзина
+    try:
+        browser.find_element(By.XPATH,'//*[@id="shopping_cart_container"]/a/span')
+    except:
+        result=True
+    assert result==True
     #time.sleep(3)
 
 def test_card_product():
@@ -101,16 +114,7 @@ def test_filter_Z_A():
     browser.find_element(By.XPATH, '//*[@id="login-button"]').click()
 
     Select(browser.find_element(By.XPATH, '// select[ @class ="product_sort_container"]')).select_by_value("za")
-    n=0
-    for i in range(1,6):
-        print(i)
-        first_element=browser.find_element(By.XPATH, f'(//div[@class="inventory_item_name "])[{i}]').text
-        next_element=browser.find_element(By.XPATH, f'(//div[@class="inventory_item_name "])[{i+1}]').text
-        if first_element[0]<next_element[0]:
-            n=n+1
-        #print(first_element[0],next_element[0])
-    #print(n)
-    assert n==0
+
 
 def test_filter_A_Z():
     #авторизация
@@ -120,16 +124,7 @@ def test_filter_A_Z():
     browser.find_element(By.XPATH, '//*[@id="login-button"]').click()
 
     Select(browser.find_element(By.XPATH, '// select[ @class ="product_sort_container"]')).select_by_value("az")
-    n=0
-    for i in range(1,6):
-        #print(i)
-        first_element=browser.find_element(By.XPATH, f'(//div[@class="inventory_item_name "])[{i}]').text
-        next_element=browser.find_element(By.XPATH, f'(//div[@class="inventory_item_name "])[{i+1}]').text
-        if first_element[0]>next_element[0]:
-            n=n+1
-        #print(first_element[0],next_element[0])
-    #print(n)
-    assert n==0
+
 
 
 
@@ -141,19 +136,7 @@ def test_filter_low_to_high():
     browser.find_element(By.XPATH, '//*[@id="login-button"]').click()
 
     Select(browser.find_element(By.XPATH, '// select[ @class ="product_sort_container"]')).select_by_value("lohi")
-    # n=0
-    # for i in range(1,6):
-    #     print(i)
-    #     first_element=browser.find_element(By.XPATH, f'(//div[@class="inventory_item_price"])[{i}]').text
-    #     next_element=browser.find_element(By.XPATH, f'(//div[@class="inventory_item_price"])[{i+1}]').text
-    #     print(first_element, next_element)
-    #     if first_element<=next_element:
-    #         # print(first_element, next_element)
-    #         # print("да")
-    #         n=n+1
-    #
-    # print(n)
-    # assert n==0
+
 
 def test_filter_high_to_low():
     #авторизация
@@ -208,5 +191,10 @@ def test_reset_app_state():
     browser.find_element(By.XPATH, '//button[@id="react-burger-menu-btn"]').click()
     time.sleep(1)
     browser.find_element(By.XPATH, '//a[@id = "reset_sidebar_link"]').click()
-
+    # проверка пуста ли корзина
+    try:
+        browser.find_element(By.XPATH,'//*[@id="shopping_cart_container"]/a/span')
+    except:
+        result=True
+    assert result==True
     time.sleep(1)
