@@ -1,5 +1,3 @@
-import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
@@ -39,7 +37,6 @@ def test_basket_add_product_1(authorise):
     except:
         result = True
     assert result == True
-    # time.sleep(3)
 
 
 def test_basket_add_product_2(authorise):
@@ -88,7 +85,6 @@ def test_placing_an_order(authorise):
     browser.find_element(By.XPATH, '//*[@id="postal-code"]').send_keys("2")
     browser.find_element(By.XPATH, '//*[@id="continue"]').click()
     browser.find_element(By.XPATH, '//*[@id="finish"]').click()
-    # time.sleep(3)
 
 
 def test_filter_Z_A(authorise):
@@ -113,7 +109,6 @@ def test_filter_high_to_low(authorise):
     browser = authorise
     # авторизация
     Select(browser.find_element(By.XPATH, '// select[ @class ="product_sort_container"]')).select_by_value("hilo")
-    # time.sleep(3)
 
 
 def test_open_menu_logout(authorise):
@@ -121,9 +116,7 @@ def test_open_menu_logout(authorise):
     # авторизация
     # переход в бургер меню
     browser.find_element(*menu).click()
-    time.sleep(1)
     browser.find_element(By.XPATH, '//a[@id="logout_sidebar_link"]').click()
-    time.sleep(1)
     assert browser.current_url == "https://www.saucedemo.com/"
 
 
@@ -132,9 +125,7 @@ def test_about(authorise):
     # авторизация
     # переход в бургер меню
     browser.find_element(*menu).click()
-    time.sleep(1)
     browser.find_element(By.XPATH, '//a[@id="about_sidebar_link"]').click()
-    time.sleep(1)
     assert browser.current_url == "https://saucelabs.com/"
     id = "reset_sidebar_link"
 
@@ -144,7 +135,6 @@ def test_reset_app_state(authorise):
     # авторизация
     # переход в бургер меню
     browser.find_element(*menu).click()
-    time.sleep(1)
     browser.find_element(By.XPATH, '//a[@id = "reset_sidebar_link"]').click()
     # проверка пуста ли корзина
     try:
@@ -152,4 +142,3 @@ def test_reset_app_state(authorise):
     except:
         result = True
     assert result == True
-    time.sleep(1)
